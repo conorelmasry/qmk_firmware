@@ -13,4 +13,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Test pwd
-      run: pwd && ls
+      run: util/docker_build.sh lily58/rp2040zero:default
