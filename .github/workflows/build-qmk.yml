@@ -1,15 +1,16 @@
-name: Build QMK Firmware
+name: Build QMK
 
 on:
-	push:
-		branches: build
-	pull_request:
-		branches: build
+  push:
+    branches: build
+	
 jobs:
-	build:
-		runs-on: ubuntu-latest
-		
-		steps:
-		- uses: actions/checkout@v4
-		- name: Test pwd
-			run: pwd && ls
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Test pwd
+      run: pwd && ls
