@@ -3,7 +3,7 @@ name: Build QMK
 on:
   push:
     branches: build
-	
+    
 jobs:
 
   build:
