@@ -10,7 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build QMK firmware using docker
-      run: echo "util/docker_build.sh lily58/rp2040zero:default" \
+      run: |
+      echo "util/docker_build.sh lily58/rp2040zero:default" \
       && touch test.uf2
     - name: Get current date
       id: date
