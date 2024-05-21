@@ -20,10 +20,9 @@ jobs:
     - name: Release firmware
       env:
         GITHUB_TOKEN ${{ secrets.GITHUB_TOKEN }}
-        tag: ${{ steps.date.outputs.date }}
       run: |
-        gh release create "$tag" \
+        gh release create "${{ steps.date.outputs.date }}" \
           --repo="$GITHUB_REPOSITORY" \
-          --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
+          --title="${GITHUB_REPOSITORY#*/} ${{ steps.date.outputs.date }}" \
           --generate-notes \
           *.uf2       
