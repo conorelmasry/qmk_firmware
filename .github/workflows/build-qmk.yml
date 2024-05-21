@@ -18,13 +18,12 @@ jobs:
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
     - name: Release firmware
-      id: create_release
-      uses: actions/create-release@latest
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: tag-${{ steps.date.outputs.date }}
-        release_name: release-${{ steps.date.outputs.date }}
-        body: Latest build of lily58/rp2040zero
-        draft: false
-        prerelease: false
+        GITHUB_TOKEN ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ steps.date.outputs.date }}
+      run: |
+        gh release create "$tag" \
+          --repo="$GITHUB_REPOSITORY" \
+          --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
+          --generate-notes \
+          *.uf2       
