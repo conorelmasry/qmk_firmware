@@ -17,7 +17,7 @@ jobs:
     - name: Release firmware
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        tag: "${{ steps.date.outputs.date}}"
+        tag: "release/${{ steps.date.outputs.date}}"
       run: |
         gh release create "$tag" \
           --repo="$GITHUB_REPOSITORY" \
