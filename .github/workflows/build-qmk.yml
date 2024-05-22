@@ -13,11 +13,11 @@ jobs:
       run: util/docker_build.sh lily58/rp2040zero:default
     - name: Get current date
       id: date
-      run: echo "date=$(date +'%Y-%m-%dT%H:%M')" >> "$GITHUB_OUTPUT"
+      run: echo "date=$(date +'%Y-%m-%dT%H-%M')" >> "$GITHUB_OUTPUT"
     - name: Release firmware
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        tag: "release/${{ steps.date.outputs.date}}"
+        tag: "release/${{ steps.date.outputs.date}}GMT"
       run: |
         gh release create "$tag" \
           --repo="$GITHUB_REPOSITORY" \
