@@ -17,7 +17,7 @@ jobs:
     - name: Archive Firmware
       uses: actions/upload-artifact@v3
       with:
-        name: lily58-rp2040zero.uf2
+        name: lily58-rp2040zero
         path: "*.uf2"
 
   release:
@@ -39,4 +39,4 @@ jobs:
         gh release create "$tag" \
           --repo="$GITHUB_REPOSITORY" \
           --title="${GITHUB_REPOSITORY#*/} $tag" \
-          release/*.uf2
+          release/lily58-rp2040zero*.uf2
