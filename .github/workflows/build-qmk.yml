@@ -14,13 +14,10 @@ jobs:
         submodules: recursive
     - name: Build QMK firmware using docker
       run: util/docker_build.sh lily58/rp2040zero:default
-    - name: Get current date
-      id: date
-      run: echo "date=$(date +'%Y-%m-%dT%H-%M')" >> "$GITHUB_OUTPUT"
     - name: Archive Firmware
       uses: actions/upload-artifact@v3
       with:
-        name: lily58-rp2040zero-firmware
+        name: lily58-rp2040zero.uf2
         path: "*.uf2"
 
   release:
@@ -31,6 +28,9 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         path: release
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%dT%H-%M')" >> "$GITHUB_OUTPUT"
     - name: Release firmware
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
