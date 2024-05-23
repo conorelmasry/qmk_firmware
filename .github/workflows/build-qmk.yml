@@ -2,18 +2,35 @@ name: Build QMK
 
 on:
   push:
-    branches: build
+    branches: [master, build]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Library
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
     - name: Build QMK firmware using docker
       run: util/docker_build.sh lily58/rp2040zero:default
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%dT%H-%M')" >> "$GITHUB_OUTPUT"
+    - name: Archive Firmware
+      uses: actions/upload-artifact@v3
+      with:
+        name: lily58-rp2040zero-firmware
+        path: "*.uf2"
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download firmware
+      uses: actions/download-artifact@v2
+      with:
+        path: release
     - name: Release firmware
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -22,4 +39,4 @@ jobs:
         gh release create "$tag" \
           --repo="$GITHUB_REPOSITORY" \
           --title="${GITHUB_REPOSITORY#*/} $tag" \
-          *.uf2 
+          release/*.uf2
