@@ -15,7 +15,7 @@ jobs:
     - name: Build QMK firmware using docker
       run: util/docker_build.sh lily58/rp2040zero:default
     - name: Archive Firmware
-      uses: actions/upload-artifact@latest
+      uses: actions/upload-artifact@v4
       with:
         name: lily58-rp2040zero
         path: "*.uf2"
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download firmware
-      uses: actions/download-artifact@latest
+      uses: actions/download-artifact@v4
       with:
         path: release
     - name: Get current date
