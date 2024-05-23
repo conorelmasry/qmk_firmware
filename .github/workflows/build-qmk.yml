@@ -38,6 +38,6 @@ jobs:
       run: |
         gh release create "$tag" \
           --repo="$GITHUB_REPOSITORY" \
-          --target $GITHUB_REF \
+          --target="$GITHUB_REF" \
           --title="${GITHUB_REPOSITORY#*/} $tag" \
           release/lily58-rp2040zero/*.uf2
